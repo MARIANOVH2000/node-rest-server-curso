@@ -5,9 +5,9 @@ const _ = require('underscore'); //exportamos la libreria underscore para que no
 const usuario = require('../models/usuario'); //exportamos los modelos de db de usuario
 const app = express(); //asignamos express
 //creamos el apartado /usuario  tsnto para el get, post ,put y delete
-
+const { verificarToken, verficarUsuarioRolecarUsuarioRole, verficarUsuarioRole } = require('../middlewares/autenticacion');
 //get para listaR
-app.get('/usuario', function(req, res) {
+app.get('/usuario', verificarToken, (req, res) => {
     //variable para listar 
     let estadoLista = {
         estado: true
@@ -54,7 +54,7 @@ app.get('/usuario', function(req, res) {
 
         })
 });
-app.post('/usuario', function(req, res) {
+app.post('/usuario', [verificarToken, verficarUsuarioRole], (req, res) => {
 
     let body = req.body; //creamos la variable body y lo asignamos el body de la petcicon usuario 
     let usuario = new Usuario({ //asiganmos los datos  al objeto usuario del models usuario 
@@ -82,7 +82,7 @@ app.post('/usuario', function(req, res) {
 });
 
 //el put
-app.put('/usuario/:id', function(req, res) {
+app.put('/usuario/:id', [verificarToken, verficarUsuarioRole], (req, res) => {
     let id = req.params.id; //asignamos los datos del id puesto en el url a la variable id
     let body = _.pick(req.body, ['nombre', 'email', 'img', ' role', 'estado']); //asignamos a la variable bodi todo lo quie queremos quie 
     //se modifique con la libreria underscore 
@@ -106,7 +106,7 @@ app.put('/usuario/:id', function(req, res) {
 
 });
 //el delete
-app.delete('/usuario/:id', function(req, res) {
+app.delete('/usuario/:id', [verificarToken, verficarUsuarioRole], (req, res) => {
 
     //res.json('delete usuario');
     let id = req.params.id; //asignamos el dato A La variable id
