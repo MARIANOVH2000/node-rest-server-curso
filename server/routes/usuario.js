@@ -5,7 +5,7 @@ const _ = require('underscore'); //exportamos la libreria underscore para que no
 const usuario = require('../models/usuario'); //exportamos los modelos de db de usuario
 const app = express(); //asignamos express
 //creamos el apartado /usuario  tsnto para el get, post ,put y delete
-const { verificarToken, verficarUsuarioRolecarUsuarioRole, verficarUsuarioRole } = require('../middlewares/autenticacion');
+const { verificarToken, verficarUsuarioRole } = require('../middlewares/autenticacion');
 //get para listaR
 app.get('/usuario', verificarToken, (req, res) => {
     //variable para listar 

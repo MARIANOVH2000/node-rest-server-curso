@@ -19,12 +19,14 @@ let verificarToken = (req, res, next) => {
     });
 
 };
-
+//veruficar el rol del usuario
 let verficarUsuarioRole = (req, res, next) => {
     let usuario = req.usuario;
+    //preguntar si el rol es admin
     if (usuario.role === "ADMIN_ROLE") {
         next();
     } else {
+        //sinoretorna un json con un false y un mesaje de error
         return res.json({
             ok: false,
             err: {
@@ -34,6 +36,7 @@ let verficarUsuarioRole = (req, res, next) => {
     }
 
 };
+//exportar los mudulos
 module.exports = {
     verificarToken,
     verficarUsuarioRole
