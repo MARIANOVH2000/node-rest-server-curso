@@ -105,7 +105,7 @@ app.put('/usuario/:id', [verificarToken, verficarUsuarioRole], (req, res) => {
     });
 
 });
-//el delete
+//el delete pero solo caMBIAR DE ESTADO DE TRUE A FALSO DE ACTIVO A INACTIVO
 app.delete('/usuario/:id', [verificarToken, verficarUsuarioRole], (req, res) => {
 
     //res.json('delete usuario');
