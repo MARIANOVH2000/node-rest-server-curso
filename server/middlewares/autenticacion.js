@@ -36,8 +36,28 @@ let verficarUsuarioRole = (req, res, next) => {
     }
 
 };
+//verifica token para imagen
+let verificaTokenImg = (req, res, next) => {
+    let token = req.query.token;
+    //req.get('token') jala al token del header
+    jwt.verify(token, process.env.SEED, (err, decoded) => {
+        if (err) {
+            return res.status(401).json({
+                ok: false,
+                err: {
+                    message: 'token no valido'
+                }
+            });
+        }
+        req.usuario = decoded.usuario;
+        next();
+    });
+}
+
+
 //exportar los mudulos
 module.exports = {
     verificarToken,
-    verficarUsuarioRole
+    verficarUsuarioRole,
+    verificaTokenImg
 }
